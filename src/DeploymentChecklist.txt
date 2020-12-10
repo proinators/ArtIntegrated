@@ -1,1 +1,0 @@
-Make sure to change imports from dev mode to deploy mode in src.Main, src.code.pratyush.pratyush, etc.
