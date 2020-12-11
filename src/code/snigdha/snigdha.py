@@ -1,4 +1,11 @@
 def main(t):
+    if hasattr(t, "curr_program"):
+        if t.curr_program != "snigdha":
+            return
+    s = t.Screen()
+    s.clearscreen()
+    s.setup(800, 600)
+    s.tracer(0)
     t.shape("arrow")
     t.color("#a86f14")
     t.fillcolor("#efb456")
@@ -17,7 +24,9 @@ def main(t):
             t.forward(20)
             t.left(60)
         t.end_fill()
-    t.mainloop()
+    t.hideturtle()
+    s.update()
+    #s.mainloop()
 
 
 if __name__ == '__main__':

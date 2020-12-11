@@ -101,6 +101,10 @@ extensions in mind. These will be commented and documented elsewhere.
 
 """
 
+# CUSTOM BY PRATYUSH
+curr_program = ""
+# END CUSTOM
+
 _ver = "turtle 1.1b- - for Python 3.1   -  4. 5. 2009"
 
 # print(_ver)
@@ -165,7 +169,7 @@ _CFG = {"width" : 0.5,               # Screen
         "language": "english",        # docstrings
         "exampleturtle": "turtle",
         "examplescreen": "screen",
-        "title": "Python Turtle Graphics",
+        "title": "Computers Art Integrated Activity - Viewer",
         "using_IDLE": False
        }
 

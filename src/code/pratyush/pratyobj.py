@@ -5,7 +5,7 @@ from os import getcwd
 
 ver_str = "{PratyObj1.0}"
 color_ops = ["+", "-", "*", "/", "a", "b"]
-development = True      # Please turn development off in this script as well as the main script to use this individually
+development = False      # Please turn development off in this script as well as the main script to use this individually
 
 
 class PowersException(BaseException):
@@ -25,7 +25,7 @@ def get_additional_validators():
 
 def read(filename):
     with open(f"{getcwd()}\\code\\pratyush\\{filename}.pratyobj"
-              if development else
+              if not development else
               f"{getcwd()}\\{filename}.pratyobj", "rb") as file:
         data = pickle.load(file)
     if not data["ver"] == ver_str:

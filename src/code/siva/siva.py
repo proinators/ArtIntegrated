@@ -13,6 +13,13 @@ def snowflake(t, lengthSide, levels):
 
 
 def main(t):
+    if hasattr(t, "curr_program"):
+        if t.curr_program != "siva":
+            return
+    screen = t.Screen()
+    screen.clearscreen()
+    screen.setup(800, 600)
+    screen.tracer(0)
     t.speed(0)
     length = 300.0
     t.penup()
@@ -21,9 +28,10 @@ def main(t):
     for i in range(3):
         snowflake(t, length, 4)
         t.right(120)
-    t.mainloop()
+    screen.update()
+    #screen.mainloop()
 
 
 if __name__ == '__main__':
-    import turtle as tt
-    main(tt)
+    import turtle
+    main(turtle)

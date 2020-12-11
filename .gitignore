@@ -3,3 +3,8 @@
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/misc.xml
 .idea/modules.xml
+.idea/vcs.xml
+*.pyc
+*.pyc
+src/code/abhay/__pycache__/abhay.cpython-39.pyc
+*.pyc

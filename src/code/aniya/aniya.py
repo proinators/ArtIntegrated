@@ -1,6 +1,3 @@
-turtle = None
-
-
 def drawRightArc(t, degrees):
     for i in range(degrees):
         t.forward(1)
@@ -25,19 +22,20 @@ def drawSun(t):
         t.right(160)
 
 
-def main(tu):
-    global turtle
-    turtle = tu
-    screen = turtle.Screen()
+def main(t):
+    if hasattr(t, "curr_program"):
+        if t.curr_program != "aniya":
+            return
+    screen = t.Screen()
     screen.clearscreen()
+    screen.setup(800, 600)
     screen.bgcolor("lightblue")
-    # screen.tracer(0)
+    screen.tracer(0)
 
-    t = turtle.Turtle()
     t.color("black")
     t.fillcolor("orange")
     t.width(1)
-    t.speed(0)
+    # t.speed(0)
 
     t.penup()
     t.goto(-125, -100)
@@ -46,9 +44,10 @@ def main(tu):
     t.begin_fill()
     drawSun(t)
     t.end_fill()
-    turtle.write("Aniya")
+    t.write("Aniya")
 
-    turtle.done()
+    screen.update()
+    # screen.mainloop()
 
 
 if __name__ == '__main__':

@@ -26,19 +26,19 @@ SOFTWARE.
 from math import sqrt
 from time import perf_counter, sleep
 from threading import Thread
-from importlib import import_module
+from importlib import import_module, reload
 import random
 import turtle
 import os
 
 
-development = True
+development = False
 if development:
     from src import playsound
-    from src.code import viewturtle
+    from src import viewturtle
 else:
     import playsound
-    from code import viewturtle
+    import viewturtle
 
 
 class Infinity:
@@ -145,9 +145,9 @@ class App:
         self.t = t
         self.win = win
         self.win.setup(width=1.0, height=0.95, startx=None, starty=None)
+        self.win.title("Computers Art Integrated Activity")
         self.win.cv._rootwindow.resizable(False, False)
         self.win.tracer(0)
-        #self.win.onscreenclick(self.click)
         self.screen = self.win.getcanvas()
         self.screen.bind('<Motion>', self.mouse)
         self.dim = [self.win.window_width(), self.win.window_height()]
@@ -167,8 +167,8 @@ class App:
         self.mainloop()
 
     def mainloop(self):
-        self.t.penup()
         try:
+            self.t.penup()
             for i in Infinity():
                 t0 = perf_counter()
                 for frame in self.manager:
@@ -180,6 +180,7 @@ class App:
                     t0 = t1
         except Exception as e:
             print(e)
+            self.close()
 
     def music(self):
         for i in Infinity():
@@ -212,8 +213,7 @@ class App:
         self.manager = self.managers[index]
 
     def close(self):
-        self.music_thread.join()
-        quit(0)
+        raise SystemExit
 
 
 class Button:
@@ -229,9 +229,10 @@ class Button:
         self.t = turtle.Turtle()
         self.t.hideturtle()
         self.enabled = False
-        self.t.goto(x, y)
+        self.t.penup()
+        self.t.speed(-10)
+        self.t.setposition(x, y)
         self.click_func = click_func
-        #self.app.win.onscreenclick(self.start_click)
         self.app.motion_funcs.append(self.hover)
         self.app.click_funcs.append(self.start_click)
         self.app.win.addshape(self.default)
@@ -270,7 +271,6 @@ class Button:
             self.t.shape(self.default)
 
     def start_click(self, x, y):
-        #print(x, y)
         if self.is_mouse_over(x, y):
             playsound.playsound("audio/press.mp3", block=False)
             self.click_func()
@@ -286,12 +286,18 @@ class MenuButton(Button):
         self.screen = None
 
     def click(self):
+        viewturtle.curr_program = self.name
         if self.screen is None:
             self.screen = viewturtle.Screen()
-        self.screen.clearscreen()
+        if viewturtle.Turtle._screen is None:
+            reload(viewturtle)
+            viewturtle.curr_program = ""
+            self.screen = viewturtle.Screen()
         try:
             self.module.main(viewturtle)
+            #viewturtle.curr_program = ""
         except Exception as e:
+            #viewturtle.curr_program = ""
             print(e)
 
 
@@ -387,7 +393,7 @@ class Menu(FrameManager):
         self.neeraj = MenuButton("neeraj", 0, 2, 275, 157, self.app)
         self.niveditha = MenuButton("niveditha", 293, 2, 275, 157, self.app)
         self.selin = MenuButton("selin", 585, 2, 275, 157, self.app)
-        self.snigdha = MenuButton("snigdha", 0, -144, 275, 157, self.app)
+        self.snigdha = MenuButton("snigdha", 0, -155, 275, 157, self.app)
         return self
 
     def __next__(self):
